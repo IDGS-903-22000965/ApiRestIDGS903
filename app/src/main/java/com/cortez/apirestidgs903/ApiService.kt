@@ -1,10 +1,8 @@
 package com.cortez.apirestidgs903
 
-import android.telecom.Call
-import com.google.gson.Gson
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -17,7 +15,7 @@ interface ApiService {
     @GET("posts")
     suspend fun getStudents(): List<Student>
 
-    @cd ("posts")
+    @POST("posts")
     fun addStudent(@Body misDatos: Student): Call<StudentResponse>
 
     @PUT("posts/{id}")
@@ -29,16 +27,16 @@ interface ApiService {
     companion object {
         private var apiService: ApiService?= null
 
-        private  var url: String = "https://jsonplacerholder.typecode.com/"
+        private var url: String = "https://jsonplaceholder.typicode.com/"  // Corregí el typo en la URL
 
-        //insyancia retrofit
-        fun getIstance(): ApiService{
+        //instancia retrofit
+        fun getInstance(): ApiService{  // Corregí el nombre del método
             if (apiService == null){
                 apiService = Retrofit.Builder()
                     .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
-                    //Instacia a la interfaz
+                    //Instancia a la interfaz
                     .create(ApiService::class.java)
             }
             return apiService!!

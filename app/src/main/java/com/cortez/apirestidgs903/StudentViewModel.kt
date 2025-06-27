@@ -9,10 +9,10 @@ import kotlinx.coroutines.launch
 
 class StudentViewModel: ViewModel() {
     var state by mutableStateOf(StudentState())
-    private set
+        private set
 
     var response: List<Student> by mutableStateOf(emptyList())
-    private set
+        private set
 
     init {
         viewModelScope.launch {
@@ -20,14 +20,13 @@ class StudentViewModel: ViewModel() {
                 isLoading = true
             )
 
-            val apiService = ApiService.getIstance()
+            val apiService = ApiService.getInstance()
             val studentsList = apiService.getStudents()
             response = studentsList
             state = state.copy(
                 isLoading = false,
                 students = response
             )
-
         }
     }
 }
